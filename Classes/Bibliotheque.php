@@ -80,7 +80,7 @@ class Bibliotheque
                         // On affiche un message pour informer l'utilisateur
                         echo "Le livre a été supprimé de la bibliothèque\n";
                         return;
-                    } 
+                    }
                     
                     elseif ($method === 'description' && $existingBook['description'] === $data) {
                         $existingBook['inStock']--;
@@ -110,6 +110,11 @@ class Bibliotheque
                         // On affiche un message pour informer l'utilisateur
                         echo "Le livre a été supprimé de la bibliothèque\n";
                         return;
+                    }
+
+                    else {
+                        // On affiche un message pour informer l'utilisateur
+                        echo "Le livre est introuvable :( \n";
                     }
                 }
             }
