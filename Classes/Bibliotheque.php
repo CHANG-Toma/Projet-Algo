@@ -131,9 +131,34 @@ class Bibliotheque
         // trie les livres par ordre alphabétique
     }
 
-    public function displayBook($id)
+    public function displayBook($name)
     {
         // affiche un livre
+
+        // Vérifie si le fichier existe
+        if (file_exists('Data/Livre.json')) {
+            $json = file_get_contents('Data/Livre.json');
+
+            // Si le fichier n'est pas vide
+            if (!empty($json)) {
+                // On récupère les données du fichier
+                $this->books = json_decode($json, true);
+
+                // On vérifie si le livre existe déjà
+                foreach ($this->books as $existingBook) {
+                    // Si le livre existe déjà, on affiche les informations du livre
+                    if ($existingBook['name'] === $name) {
+                        echo " \nInformations sur le livre :\n";
+                        echo "ID du livre : " . $existingBook['id'] . "\n";
+                        echo "Nom du livre : " . $existingBook['name'] . "\n";
+                        echo "Description du livre : " . $existingBook['description'] . "\n";
+                        echo "Quantité en stock : " . $existingBook['inStock'] . "\n" . "\n";
+                        return;
+                    }
+                }
+                echo "\n Le livre est introuvable :( \n";
+            }
+        }
     }
 
     public function displayBooks()
