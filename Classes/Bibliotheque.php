@@ -170,7 +170,7 @@ class Bibliotheque
         // modifie un livre
     }
 
-    private function history(array $data)
+    private function history(array $data) : void
     {
         // Vérifie si l'action est présente dans le tableau pour déterminer le type de log 
         if ($data["action"] === "Suppression") {
