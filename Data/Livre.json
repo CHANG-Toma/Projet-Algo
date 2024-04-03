@@ -3,12 +3,12 @@
         "id": "660d35c65255b",
         "name": "Test",
         "description": "test1 commentaire",
-        "inStock": 4
+        "inStock": 2
     },
     {
         "id": "660d3734a3b21",
         "name": "Test2",
         "description": "CommentTest2",
-        "inStock": 2
+        "inStock": 3
     }
 ]
