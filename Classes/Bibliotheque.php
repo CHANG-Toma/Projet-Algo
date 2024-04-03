@@ -52,19 +52,78 @@ class Bibliotheque
         }
     }
 
-    public function deleteBook($id)
+    public function deleteBook($data, $method) : void
     {
-        // supprime un livre de la bibliothèque
-    }
+        // Vérifie si le fichier existe
+        if (file_exists('Data/Livre.json')) {
+            $json = file_get_contents('Data/Livre.json');
 
-    public function findBook($id)
-    {
-        foreach ($this->books as $book) {
-            if ($book['id'] === $id) {
-                return $book;
+            // Si le fichier n'est pas vide
+            if (!empty($json)) {
+                // On récupère les données du fichier 
+                $this->books = json_decode($json, true);
+
+                // On vérifie si le livre existe déjà
+                foreach ($this->books as $key => &$existingBook) {
+                    // Si le livre existe déjà, on décrémente la quantité en fonction de la méthode de recherche
+
+                    if ($method === 'name' && $existingBook['name'] === $data) {
+                        $existingBook['inStock']--;
+
+                        // Si la quantité est inférieure ou égale à 0 on supprime le livre 
+                        if ($existingBook['inStock'] <= 0) {
+                            unset($this->books[$key]);
+                        }
+
+                        $json = json_encode($this->books);
+                        file_put_contents('Data/Livre.json', $json);
+                        // On affiche un message pour informer l'utilisateur
+                        echo "Le livre a été supprimé de la bibliothèque\n";
+                        return;
+                    }
+                    
+                    elseif ($method === 'description' && $existingBook['description'] === $data) {
+                        $existingBook['inStock']--;
+
+                        // Si la quantité est inférieure ou égale à 0, on supprime le livre
+                        if ($existingBook['inStock'] <= 0) {
+                            unset($this->books[$key]);
+                        }
+
+                        $json = json_encode($this->books);
+                        file_put_contents('Data/Livre.json', $json);
+                        // On affiche un message pour informer l'utilisateur
+                        echo "Le livre a été supprimé de la bibliothèque\n";
+                        return;
+                    } 
+                    
+                    elseif ($method === 'id' && $existingBook['id'] === $data) {
+                        $existingBook['inStock']--;
+
+                        // Si la quantité est inférieure ou égale à 0, on supprime le livre
+                        if ($existingBook['inStock'] <= 0) {
+                            unset($this->books[$key]);
+                        }
+
+                        $json = json_encode($this->books);
+                        file_put_contents('Data/Livre.json', $json);
+                        // On affiche un message pour informer l'utilisateur
+                        echo "Le livre a été supprimé de la bibliothèque\n";
+                        return;
+                    }
+
+                    else {
+                        // On affiche un message pour informer l'utilisateur
+                        echo "Le livre est introuvable :( \n";
+                    }
+                }
             }
         }
-        return null;
+    }
+
+    public function findBook()
+    {
+        // recherche un livre        
     }
 
     public function sortBooks()

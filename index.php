@@ -8,7 +8,8 @@ include "Classes/Gestion_fichier.php";
 $bibliotheque = new Bibliotheque();
 
 // Fonction principale affichant le menu et gérant les interactions utilisateur
-function afficherMenu() {
+function afficherMenu()
+{
     echo "-----------------------------------\n";
     echo " Gestion de Bibliothèque\n";
     echo "-----------------------------------\n";
@@ -36,16 +37,47 @@ do {
             echo "Entrez la description du livre : ";
             $description = trim(fgets(STDIN));
             $id = uniqid();
-                    
+
             $livre = new Livre($id, $nom, $description);
             $bibliotheque->addBook($livre);
             break;
-            
+
         case '2':
             // Logique de modification de livre
             break;
         case '3':
             // Logique de suppression de livre
+
+            echo "Comment voulez-vous supprimer le livre ?\n";
+            echo "1. Par son nom\n";
+            echo "2. Par son commentaire\n";
+            echo "3. Par son id\n";
+            echo "4. Retour\n";
+            echo "Choisissez une option : ";
+            $choixSuppression = trim(fgets(STDIN));
+
+            switch ($choixSuppression) {
+                case '1':
+                    echo "Entrez le nom du livre à supprimer : ";
+                    $nom = trim(fgets(STDIN));
+                    $bibliotheque->deleteBook($nom, 'name');
+                    break;
+                case '2':
+                    echo "Entrez le commentaire du livre à supprimer : ";
+                    $description = trim(fgets(STDIN));
+                    $bibliotheque->deleteBook($description, 'description');
+                    break;
+                case '3':
+                    echo "Entrez l'id du livre à supprimer : ";
+                    $id = trim(fgets(STDIN));
+                    $bibliotheque->deleteBook($id, 'id');
+                    break;
+                case '4':
+                    break;
+                default:
+                    echo "Option non valide. Veuillez réessayer.\n";
+            }
+
             break;
         case '4':
             // Logique d'affichage de tous les livres
