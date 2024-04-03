@@ -2,7 +2,6 @@
 
 include "Classes/Bibliotheque.php";
 include "Classes/Livre.php";
-include "Classes/Gestion_fichier.php";
 
 // Instance de la bibliothèque
 $bibliotheque = new Bibliotheque();
@@ -10,7 +9,7 @@ $bibliotheque = new Bibliotheque();
 // Fonction principale affichant le menu et gérant les interactions utilisateur
 function afficherMenu()
 {
-    echo "-----------------------------------\n";
+    echo "\n-----------------------------------\n";
     echo " Gestion de Bibliothèque\n";
     echo "-----------------------------------\n";
     echo "1. Ajouter un livre\n";
@@ -48,7 +47,7 @@ do {
         case '3':
             // Logique de suppression de livre
 
-            echo "Comment voulez-vous supprimer le livre ?\n";
+            echo "\nComment voulez-vous supprimer le livre ?\n";
             echo "1. Par son nom\n";
             echo "2. Par son commentaire\n";
             echo "3. Par son id\n";
@@ -58,24 +57,24 @@ do {
 
             switch ($choixSuppression) {
                 case '1':
-                    echo "Entrez le nom du livre à supprimer : ";
+                    echo "\nEntrez le nom du livre à supprimer : ";
                     $nom = trim(fgets(STDIN));
                     $bibliotheque->deleteBook($nom, 'name');
                     break;
                 case '2':
-                    echo "Entrez le commentaire du livre à supprimer : ";
+                    echo "\nEntrez le commentaire du livre à supprimer : ";
                     $description = trim(fgets(STDIN));
                     $bibliotheque->deleteBook($description, 'description');
                     break;
                 case '3':
-                    echo "Entrez l'id du livre à supprimer : ";
+                    echo "\nEntrez l'id du livre à supprimer : ";
                     $id = trim(fgets(STDIN));
                     $bibliotheque->deleteBook($id, 'id');
                     break;
                 case '4':
                     break;
                 default:
-                    echo "Option non valide. Veuillez réessayer.\n";
+                    echo "\nOption non valide. Veuillez réessayer.\n";
             }
 
             break;
@@ -84,6 +83,10 @@ do {
             break;
         case '5':
             // Logique d'affichage d'un livre spécifique
+
+            echo "\nEntrez le nom du livre :\n";
+            $nom = trim(fgets(STDIN));
+            $bibliotheque->displayBook($nom);
             break;
         case '6':
             // Logique de tri des livres
