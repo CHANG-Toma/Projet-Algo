@@ -37,6 +37,7 @@ class Bibliotheque
                         file_put_contents('Data/Livre.json', $json);
                         // On affiche un message pour informer l'utilisateur
                         echo "Le livre existe déjà, il a été ajouté à l'inventaire\n";
+                        $this->history(['action' => 'Ajout', 'Nom du livre' => $TabBook['name']]);
                         return;
                     }
                 }
@@ -49,10 +50,11 @@ class Bibliotheque
             file_put_contents('Data/Livre.json', $json);
             // On affiche un message pour informer l'utilisateur
             echo "\n" . "Le livre a été ajouté à la bibliothèque\n";
+            $this->history(['action' => 'Ajout', 'Nom du livre' => $TabBook['name']]);
         }
     }
 
-    public function deleteBook($data, $method) : void
+    public function deleteBook($data, $method): void
     {
         // Vérifie si le fichier existe
         if (file_exists('Data/Livre.json')) {
@@ -79,10 +81,9 @@ class Bibliotheque
                         file_put_contents('Data/Livre.json', $json);
                         // On affiche un message pour informer l'utilisateur
                         echo "Le livre a été supprimé de la bibliothèque\n";
+                        $this->history(['action' => 'Suppression', 'Nom du livre' => $data]);
                         return;
-                    }
-                    
-                    elseif ($method === 'description' && $existingBook['description'] === $data) {
+                    } elseif ($method === 'description' && $existingBook['description'] === $data) {
                         $existingBook['inStock']--;
 
                         // Si la quantité est inférieure ou égale à 0, on supprime le livre
@@ -94,10 +95,9 @@ class Bibliotheque
                         file_put_contents('Data/Livre.json', $json);
                         // On affiche un message pour informer l'utilisateur
                         echo "Le livre a été supprimé de la bibliothèque\n";
+                        $this->history(['action' => 'Suppression', 'Nom du livre' => $data]);
                         return;
-                    } 
-                    
-                    elseif ($method === 'id' && $existingBook['id'] === $data) {
+                    } elseif ($method === 'id' && $existingBook['id'] === $data) {
                         $existingBook['inStock']--;
 
                         // Si la quantité est inférieure ou égale à 0, on supprime le livre
@@ -109,10 +109,9 @@ class Bibliotheque
                         file_put_contents('Data/Livre.json', $json);
                         // On affiche un message pour informer l'utilisateur
                         echo "Le livre a été supprimé de la bibliothèque\n";
+                        $this->history(['action' => 'Suppression', 'Nom du livre' => $data]);
                         return;
-                    }
-
-                    else {
+                    } else {
                         // On affiche un message pour informer l'utilisateur
                         echo "Le livre est introuvable :( \n";
                     }
@@ -131,10 +130,8 @@ class Bibliotheque
         // trie les livres par ordre alphabétique
     }
 
-    public function displayBook($name)
+    public function displayBook($name): void
     {
-        // affiche un livre
-
         // Vérifie si le fichier existe
         if (file_exists('Data/Livre.json')) {
             $json = file_get_contents('Data/Livre.json');
@@ -153,10 +150,12 @@ class Bibliotheque
                         echo "Nom du livre : " . $existingBook['name'] . "\n";
                         echo "Description du livre : " . $existingBook['description'] . "\n";
                         echo "Quantité en stock : " . $existingBook['inStock'] . "\n" . "\n";
+                        $this->history(['action' => 'Affichage', 'Nom du livre' => $name]);
                         return;
                     }
                 }
                 echo "\n Le livre est introuvable :( \n";
+                $this->history(['action' => 'Affichage', 'Nom du livre' => $name]);
             }
         }
     }
@@ -169,5 +168,20 @@ class Bibliotheque
     public function modifyBook($id, $name, $description, $inStock)
     {
         // modifie un livre
+    }
+
+    private function history(array $data)
+    {
+        // Vérifie si l'action est présente dans le tableau pour déterminer le type de log 
+        if ($data["action"] === "Suppression") {
+            // On initialise logData avec le type de log de suppression "WARNING"
+            $logData = "[" . date('Y-m-d H:i:s') . "] - WARNING - " . json_encode($data) . "\n";
+        } else {
+            // On initialise logData avec le type de log d'ajout "INFO"
+            $logData = "[" . date('Y-m-d H:i:s') . "] - INFO - " . json_encode($data) . "\n";
+        }
+
+        // On enregistre l'action dans le fichier de log
+        file_put_contents('log/actions.log', $logData, FILE_APPEND);
     }
 }

@@ -44,9 +44,9 @@ do {
         case '2':
             // Logique de modification de livre
             break;
+
         case '3':
             // Logique de suppression de livre
-
             // Affichage du menu de suppression
             echo "\nComment voulez-vous supprimer le livre ?\n";
             echo "1. Par son nom\n";
@@ -81,8 +81,8 @@ do {
                 default:
                     echo "\nOption non valide. Veuillez réessayer.\n";
             }
-
             break;
+
         case '4':
             // Logique d'affichage de tous les livres
             break;
