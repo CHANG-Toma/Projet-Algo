@@ -1,0 +1,5 @@
+[2024-04-03 16:43:09] - WARNING - {"action":"Suppression","Nom du livre":"AAAA"}
+[2024-04-03 16:50:17] - INFO - {"action":"Affichage","Nom du livre":"Salut2"}
+[2024-04-03 16:50:52] - WARNING - {"action":"Suppression","Nom du livre":"Salut2"}
+[2024-04-03 16:51:17] - INFO - {"action":"Affichage","Nom du livre":"Test historique"}
+[2024-04-03 16:51:36] - WARNING - {"action":"Suppression","Nom du livre":"Test historique"}
