@@ -35,15 +35,12 @@ do {
             $nom = trim(fgets(STDIN));
             echo "Entrez la description du livre : ";
             $description = trim(fgets(STDIN));
-            echo "Le livre est-il disponible ? (oui/non) : ";
-            $disponibiliteReponse = trim(fgets(STDIN));
-            $disponible = strtolower($disponibiliteReponse) === 'oui';
-        
-            $livre = new Livre($nom, $description, $disponible);
+            $id = uniqid();
+                    
+            $livre = new Livre($id, $nom, $description);
             $bibliotheque->addBook($livre);
-        
-            echo "Livre ajouté avec succès.\n";
             break;
+            
         case '2':
             // Logique de modification de livre
             break;

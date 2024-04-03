@@ -4,12 +4,12 @@
 
 class Livre {
     private $id;
-    private $nom;
-    private $description;
+    private string $name;
+    private string $description;
 
-    public function __construct($nom, $description, $enStock) {
-        $this->id = uniqid(); // Génère un ID unique
-        $this->nom = $nom;
+    public function __construct($id, $nom, $description) {
+        $this->id = $id;
+        $this->name = $nom;
         $this->description = $description;
     }
 
@@ -18,12 +18,12 @@ class Livre {
         return $this->id;
     }
 
-    public function getNom() {
-        return $this->nom;
+    public function getName() {
+        return $this->name;
     }
 
-    public function setNom($nom) {
-        $this->nom = $nom;
+    public function setName($nom) {
+        $this->name = $nom;
     }
 
     public function getDescription() {
