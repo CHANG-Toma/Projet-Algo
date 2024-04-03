@@ -80,7 +80,9 @@ class Bibliotheque
                         // On affiche un message pour informer l'utilisateur
                         echo "Le livre a été supprimé de la bibliothèque\n";
                         return;
-                    } elseif ($method === 'description' && $existingBook['description'] === $data) {
+                    } 
+                    
+                    elseif ($method === 'description' && $existingBook['description'] === $data) {
                         $existingBook['inStock']--;
 
                         // Si la quantité est inférieure ou égale à 0, on supprime le livre
@@ -93,7 +95,9 @@ class Bibliotheque
                         // On affiche un message pour informer l'utilisateur
                         echo "Le livre a été supprimé de la bibliothèque\n";
                         return;
-                    } elseif ($method === 'id' && $existingBook['id'] === $data) {
+                    } 
+                    
+                    elseif ($method === 'id' && $existingBook['id'] === $data) {
                         $existingBook['inStock']--;
 
                         // Si la quantité est inférieure ou égale à 0, on supprime le livre
