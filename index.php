@@ -47,6 +47,7 @@ do {
         case '3':
             // Logique de suppression de livre
 
+            // Affichage du menu de suppression
             echo "\nComment voulez-vous supprimer le livre ?\n";
             echo "1. Par son nom\n";
             echo "2. Par son commentaire\n";
@@ -56,21 +57,25 @@ do {
             $choixSuppression = trim(fgets(STDIN));
 
             switch ($choixSuppression) {
+                // Suppression par nom
                 case '1':
                     echo "\nEntrez le nom du livre à supprimer : ";
                     $nom = trim(fgets(STDIN));
                     $bibliotheque->deleteBook($nom, 'name');
                     break;
+                // Suppression par commentaire
                 case '2':
                     echo "\nEntrez le commentaire du livre à supprimer : ";
                     $description = trim(fgets(STDIN));
                     $bibliotheque->deleteBook($description, 'description');
                     break;
+                // Suppression par id
                 case '3':
                     echo "\nEntrez l'id du livre à supprimer : ";
                     $id = trim(fgets(STDIN));
                     $bibliotheque->deleteBook($id, 'id');
                     break;
+                // Retour
                 case '4':
                     break;
                 default:
