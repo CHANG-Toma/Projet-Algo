@@ -98,6 +98,38 @@ do {
             break;
         case '7':
             // Logique de recherche de livre
+
+            // Choix de la colonnes
+            echo "\nRechercher par :\n";
+            echo "1. Nom\n";
+            echo "2. Description\n";
+            echo "3. ID\n";
+            echo "Choisissez une option : ";
+            $column = trim(fgets(STDIN));
+
+            // faire un switch pour les colonnes
+            switch ($column) {
+                case '1':
+                    $column = 'name';
+                    echo "\nEntrez le nom du livre à rechercher :\n";
+                    $bookData = trim(fgets(STDIN));
+                    break;
+                case '2':
+                    $column = 'description';
+                    echo "\nEntrez la description du livre à rechercher :\n";
+                    $bookData = trim(fgets(STDIN));
+                    break;
+                case '3':
+                    $column = 'id';
+                    echo "\nEntrez l'id du livre à rechercher :\n";
+                    $bookData = trim(fgets(STDIN));
+                    break;
+                default:
+                    echo "Option non valide. Veuillez réessayer.\n";
+                    continue;
+            }
+
+            $bibliotheque->findBook($column, $bookData);
             break;
         case '8':
             echo "C'est chaooo !\n";
