@@ -4,3 +4,8 @@
 [2024-04-03 16:51:17] - INFO - {"action":"Affichage","Nom du livre":"Test historique"}
 [2024-04-03 16:51:36] - WARNING - {"action":"Suppression","Nom du livre":"Test historique"}
 [2024-04-04 14:54:31] - INFO - {"action":"Ajout","Nom du livre":"azerty"}
+[2024-04-04 15:06:36] - INFO - {"action":"Affichage","Nom du livre":"azerty"}
+[2024-04-04 15:06:49] - WARNING - {"action":"Suppression","Nom du livre":"azerty"}
+[2024-04-04 15:07:07] - WARNING - {"action":"Suppression","Nom du livre":"Lauia"}
+[2024-04-04 15:07:28] - INFO - {"action":"Ajout","Nom du livre":"test3"}
+[2024-04-04 15:07:42] - INFO - {"action":"Affichage","Nom du livre":"test3"}

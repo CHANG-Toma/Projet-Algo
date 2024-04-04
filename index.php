@@ -132,7 +132,7 @@ do {
             $bibliotheque->findBook($column, $bookData);
             break;
         case '8':
-            echo "C'est chaooo !\n";
+            echo "C'est ciaooo !\n";
             $continuer = false;
             break;
         default:

@@ -123,7 +123,6 @@ class Bibliotheque
         }
     }
 
-
     public function sortBooks()
     {
         // trie les livres par ordre alphabétique
@@ -170,7 +169,7 @@ class Bibliotheque
         // modifie un livre
     }
 
-    public function findBook($column, $value)
+    public function findBook($column, $value) : void
     {
         // Récupère les informations des livres
         $json = file_get_contents('Data/Livre.json');
@@ -185,7 +184,7 @@ class Bibliotheque
         $right = count($this->books) - 1; // Index de fin
 
         while ($left <= $right) {
-            // Calcul le milieu du tableau
+            // Calcul le milieu du tableau pour la recherche binaire
             $mid = floor(($left + $right) / 2);
 
             // Vérifie si le livre du milieu existe

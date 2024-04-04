@@ -12,15 +12,9 @@
         "inStock": 3
     },
     {
-        "id": "660d685e2e4f2",
-        "name": "Lauia",
-        "description": "luia",
-        "inStock": 1
-    },
-    {
-        "id": "660ea3075b963",
-        "name": "azerty",
-        "description": "ytreza",
+        "id": "660ea60ff2156",
+        "name": "test3",
+        "description": "test33",
         "inStock": 1
     }
 ]
