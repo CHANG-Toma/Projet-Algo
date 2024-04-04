@@ -177,6 +177,7 @@ class Bibliotheque
 
         // Trie rapide des livres par ordre alphabétique
         $this->fastSort($this->books);
+        $this->history(['action' => 'Tri', 'Type de tri' => 'Rapide']);
         //print_r($this->books);
 
         // Recherche binaire 
@@ -200,6 +201,7 @@ class Bibliotheque
                     echo "Nom: " . $book['name'] . "\n";
                     echo "Description: " . $book['description'] . "\n";
                     echo "En Stock : " . $book['inStock'] . "\n";
+                    $this->history(['action' => 'Recherche', 'Nom du livre' => $book['name']]);
                     return;
                 } elseif (isset($book[$column]) && $book[$column] < $value) {
                     // Si la valeur est plus grande, on ignore la partie gauche
