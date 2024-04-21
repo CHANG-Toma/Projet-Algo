@@ -190,7 +190,25 @@ class Bibliotheque
 
     public function displayBooks()
     {
-        // affiche tous les livres
+        // Vérifie si le fichier existe
+        if (file_exists('Data/Livre.json')) {
+            $json = file_get_contents('Data/Livre.json');
+            $books = json_decode($json, true);
+
+            if (!empty($books)) {
+                echo "\nListe des livres disponibles :\n";
+                foreach ($books as $book) {
+                    echo "ID: " . $book['id'] . "\n";
+                    echo "Nom: " . $book['name'] . "\n";
+                    echo "Description: " . $book['description'] . "\n";
+                    echo "En stock: " . ($book['inStock'] ? "Oui" : "Non") . "\n\n";
+                }
+            } else {
+                echo "\nAucun livre disponible.\n";
+            }
+        } else {
+            echo "\nFichier de données introuvable.\n";
+        }
     }
 
     public function findBook($column, $value) : void
