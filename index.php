@@ -41,17 +41,17 @@ do {
             $bibliotheque->addBook($livre);
             break;
 
-            case '2':
-                // Logique de modification de livre
-                echo "Entrez le nouveau nom du livre : ";
-                $nom = trim(fgets(STDIN));
-                echo "Entrez la nouvelle description du livre : ";
-                $description = trim(fgets(STDIN));
-                echo "Le livre est-il en stock ? (oui/non) : ";
-                $enStock = strtolower(trim(fgets(STDIN))) === 'oui' ? 1 : 0;
-        
-                $bibliotheque->modifyBook($id, $nom, $description, $enStock);
-                break;
+        case '2':
+            // Logique de modification de livre
+            echo "Entrez le nouveau nom du livre : ";
+            $nom = trim(fgets(STDIN));
+            echo "Entrez la nouvelle description du livre : ";
+            $description = trim(fgets(STDIN));
+            echo "Le livre est-il en stock ? (oui/non) : ";
+            $enStock = strtolower(trim(fgets(STDIN))) === 'oui' ? 1 : 0;
+
+            $bibliotheque->modifyBook($id, $nom, $description, $enStock);
+            break;
 
         case '3':
             // Logique de suppression de livre
@@ -65,25 +65,25 @@ do {
             $choixSuppression = trim(fgets(STDIN));
 
             switch ($choixSuppression) {
-                // Suppression par nom
+                    // Suppression par nom
                 case '1':
                     echo "\nEntrez le nom du livre à supprimer : ";
                     $nom = trim(fgets(STDIN));
                     $bibliotheque->deleteBook($nom, 'name');
                     break;
-                // Suppression par commentaire
+                    // Suppression par commentaire
                 case '2':
                     echo "\nEntrez le commentaire du livre à supprimer : ";
                     $description = trim(fgets(STDIN));
                     $bibliotheque->deleteBook($description, 'description');
                     break;
-                // Suppression par id
+                    // Suppression par id
                 case '3':
                     echo "\nEntrez l'id du livre à supprimer : ";
                     $id = trim(fgets(STDIN));
                     $bibliotheque->deleteBook($id, 'id');
                     break;
-                // Retour
+                    // Retour
                 case '4':
                     break;
                 default:
@@ -95,7 +95,7 @@ do {
             // Logique d'affichage de tous les livres
             $bibliotheque->displayBooks();
             break;
-    
+
         case '5':
             // Logique d'affichage d'un livre spécifique
 
@@ -105,6 +105,34 @@ do {
             break;
         case '6':
             // Logique de tri des livres
+            echo "Choisissez la colonne pour le tri :\n";
+            echo "1. Nom\n";
+            echo "2. Description\n";
+            echo "3. Stock\n";
+            $columnChoice = trim(fgets(STDIN));
+
+            switch ($columnChoice) {
+                case '1':
+                    $column = 'name';
+                    break;
+                case '2':
+                    $column = 'description';
+                    break;
+                case '3':
+                    $column = 'inStock';
+                    break;
+                default:
+                    echo "Option non valide.\n";
+                    continue 2;
+            }
+
+            echo "Choisissez l'ordre du tri :\n";
+            echo "1. Ascendant\n";
+            echo "2. Descendant\n";
+            $orderChoice = trim(fgets(STDIN));
+            $order = ($orderChoice === '2') ? 'desc' : 'asc';
+
+            $bibliotheque->sortBooks($column, $order);
             break;
         case '7':
             // Logique de recherche de livre
