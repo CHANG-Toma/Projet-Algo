@@ -93,7 +93,9 @@ do {
 
         case '4':
             // Logique d'affichage de tous les livres
+            $bibliotheque->displayBooks();
             break;
+    
         case '5':
             // Logique d'affichage d'un livre spécifique
 
