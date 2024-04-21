@@ -55,6 +55,35 @@ class Bibliotheque
         }
     }
 
+    public function modifyBook($id, $name, $description, $inStock)
+    {
+        // Vérifie si le fichier existe
+        if (file_exists('Data/Livre.json')) {
+            $json = file_get_contents('Data/Livre.json');
+            $this->books = json_decode($json, true);
+
+            // Parcourir les livres pour trouver celui à modifier
+            foreach ($this->books as &$existingBook) {
+                if ($existingBook['id'] === $id) {
+                    // Mise à jour des informations du livre
+                    $existingBook['name'] = $name;
+                    $existingBook['description'] = $description;
+                    $existingBook['inStock'] = $inStock;
+
+                    // Sauvegarder les modifications dans le fichier
+                    $json = json_encode($this->books);
+                    file_put_contents('Data/Livre.json', $json);
+                    
+                    echo "Les informations du livre ont été mises à jour.\n";
+                    $this->history(['action' => 'Modification', 'ID du livre' => $id]);
+                    return;
+                }
+            }
+
+            echo "Aucun livre trouvé avec cet ID.\n";
+        }
+    }
+
     public function deleteBook($data, $method): void
     {
         // Vérifie si le fichier existe
@@ -162,11 +191,6 @@ class Bibliotheque
     public function displayBooks()
     {
         // affiche tous les livres
-    }
-
-    public function modifyBook($id, $name, $description, $inStock)
-    {
-        // modifie un livre
     }
 
     public function findBook($column, $value) : void
