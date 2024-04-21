@@ -41,9 +41,17 @@ do {
             $bibliotheque->addBook($livre);
             break;
 
-        case '2':
-            // Logique de modification de livre
-            break;
+            case '2':
+                // Logique de modification de livre
+                echo "Entrez le nouveau nom du livre : ";
+                $nom = trim(fgets(STDIN));
+                echo "Entrez la nouvelle description du livre : ";
+                $description = trim(fgets(STDIN));
+                echo "Le livre est-il en stock ? (oui/non) : ";
+                $enStock = strtolower(trim(fgets(STDIN))) === 'oui' ? 1 : 0;
+        
+                $bibliotheque->modifyBook($id, $nom, $description, $enStock);
+                break;
 
         case '3':
             // Logique de suppression de livre
