@@ -152,9 +152,70 @@ class Bibliotheque
         }
     }
 
-    public function sortBooks()
+    public function sortBooks($column, $order = 'asc')
     {
-        // trie les livres par ordre alphabétique
+        if (file_exists('Data/Livre.json')) {
+            $json = file_get_contents('Data/Livre.json');
+            $this->books = json_decode($json, true);
+
+            if (!empty($this->books)) {
+                $sortedBooks = $this->mergeSort($this->books, $column, $order);
+                foreach ($sortedBooks as $book) {
+                    echo "ID: " . $book['id'] . "\n";
+                    echo "Nom: " . $book['name'] . "\n";
+                    echo "Description: " . $book['description'] . "\n";
+                    echo "En stock: " . ($book['inStock'] ? "Oui" : "Non") . "\n\n";
+                }
+            } else {
+                echo "Aucun livre à trier.\n";
+            }
+        } else {
+            echo "Fichier de données introuvable.\n";
+        }
+    }
+
+    private function mergeSort($books, $column, $order)
+    {
+        if (count($books) < 2) {
+            return $books;
+        }
+
+        $mid = intdiv(count($books), 2);
+        $left = array_slice($books, 0, $mid);
+        $right = array_slice($books, $mid);
+
+        return $this->merge(
+            $this->mergeSort($left, $column, $order),
+            $this->mergeSort($right, $column, $order),
+            $column,
+            $order
+        );
+    }
+
+    private function merge($left, $right, $column, $order)
+    {
+        $result = [];
+        $i = 0;
+        $j = 0;
+
+        while ($i < count($left) && $j < count($right)) {
+            if (($order === 'asc' && $left[$i][$column] <= $right[$j][$column]) ||
+                ($order === 'desc' && $left[$i][$column] > $right[$j][$column])) {
+                $result[] = $left[$i++];
+            } else {
+                $result[] = $right[$j++];
+            }
+        }
+
+        while ($i < count($left)) {
+            $result[] = $left[$i++];
+        }
+
+        while ($j < count($right)) {
+            $result[] = $right[$j++];
+        }
+
+        return $result;
     }
 
     public function displayBook($name): void
