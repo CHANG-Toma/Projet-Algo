@@ -1,20 +1,20 @@
 [
-  {
-      "id": "660d35c65255b",
-      "name": "Test",
-      "description": "test1 commentaire",
-      "inStock": 1
-  },
-  {
-      "id": "660d3734a3b21",
-      "name": "Test2",
-      "description": "CommentTest2",
-      "inStock": 3
-  },
-  {
-      "id": "660ea60ff2156",
-      "name": "test3",
-      "description": "test33",
-      "inStock": 1
-  }
+    {
+        "id": "660d35c65255b",
+        "name": "TESTEST",
+        "description": "a",
+        "inStock": 1
+    },
+    {
+        "id": "660d3734a3b21",
+        "name": "Test2",
+        "description": "CommentTest2",
+        "inStock": 3
+    },
+    {
+        "id": "660ea60ff2156",
+        "name": "test3",
+        "description": "test33",
+        "inStock": 1
+    }
 ]

@@ -55,7 +55,7 @@ class Bibliotheque
         }
     }
 
-    public function modifyBook($id, $name, $description, $inStock)
+    public function modifyBook($name, $newName, $description, $inStock)
     {
         // Vérifie si le fichier existe
         if (file_exists('Data/Livre.json')) {
@@ -64,9 +64,9 @@ class Bibliotheque
 
             // Parcourir les livres pour trouver celui à modifier
             foreach ($this->books as &$existingBook) {
-                if ($existingBook['id'] === $id) {
+                if ($existingBook['name'] === $name) {
                     // Mise à jour des informations du livre
-                    $existingBook['name'] = $name;
+                    $existingBook['name'] = $newName;
                     $existingBook['description'] = $description;
                     $existingBook['inStock'] = $inStock;
 
@@ -75,7 +75,7 @@ class Bibliotheque
                     file_put_contents('Data/Livre.json', $json);
                     
                     echo "Les informations du livre ont été mises à jour.\n";
-                    $this->history(['action' => 'Modification', 'ID du livre' => $id]);
+                    $this->history(['action' => 'Modification', 'ID du livre' => $existingBook['id']]);
                     return;
                 }
             }

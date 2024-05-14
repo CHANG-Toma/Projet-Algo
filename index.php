@@ -43,14 +43,16 @@ do {
 
         case '2':
             // Logique de modification de livre
-            echo "Entrez le nouveau nom du livre : ";
+            echo "Entrez le nom du livre à modifier : ";
             $nom = trim(fgets(STDIN));
+            echo "Entrez le nouveau nom du livre : ";
+            $NouveauNom = trim(fgets(STDIN));
             echo "Entrez la nouvelle description du livre : ";
             $description = trim(fgets(STDIN));
             echo "Le livre est-il en stock ? (oui/non) : ";
             $enStock = strtolower(trim(fgets(STDIN))) === 'oui' ? 1 : 0;
 
-            $bibliotheque->modifyBook($id, $nom, $description, $enStock);
+            $bibliotheque->modifyBook($nom, $NouveauNom, $description, $enStock);
             break;
 
         case '3':
