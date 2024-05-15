@@ -111,6 +111,7 @@ do {
             echo "1. Nom\n";
             echo "2. Description\n";
             echo "3. Stock\n";
+            echo "4. ID\n"; // Ajout de l'option de tri par ID
             $columnChoice = trim(fgets(STDIN));
 
             switch ($columnChoice) {
@@ -122,6 +123,9 @@ do {
                     break;
                 case '3':
                     $column = 'inStock';
+                    break;
+                case '4':
+                    $column = 'id';
                     break;
                 default:
                     echo "Option non valide.\n";
