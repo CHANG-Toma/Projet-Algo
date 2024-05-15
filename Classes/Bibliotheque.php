@@ -55,7 +55,7 @@ class Bibliotheque
         }
     }
 
-    public function modifyBook($name, $newName, $description, $inStock)
+    public function modifyBook($column, $bookdata)
     {
         // Vérifie si le fichier existe
         if (file_exists('Data/Livre.json')) {
@@ -64,23 +64,29 @@ class Bibliotheque
 
             // Parcourir les livres pour trouver celui à modifier
             foreach ($this->books as &$existingBook) {
-                if ($existingBook['name'] === $name) {
+                if ($existingBook[$column] === $bookdata["book"]) {
                     // Mise à jour des informations du livre
-                    $existingBook['name'] = $newName;
-                    $existingBook['description'] = $description;
-                    $existingBook['inStock'] = $inStock;
+                    $existingBook['name'] = $bookdata["newName"];
+                    $existingBook['description'] = $bookdata["description"];
 
-                    // Sauvegarder les modifications dans le fichier
-                    $json = json_encode($this->books);
-                    file_put_contents('Data/Livre.json', $json);
-                    
-                    echo "Les informations du livre ont été mises à jour.\n";
-                    $this->history(['action' => 'Modification', 'ID du livre' => $existingBook['id']]);
-                    return;
+                    if ($bookdata["inStock"] === 'non') {
+                        $existingBook["inStock"] = 0;
+                    } else if ($bookdata["inStock"] === 'oui' && $existingBook["inStock"] === 0) { {
+                            $existingBook["inStock"]++;
+                        }
+
+                        // Sauvegarder les modifications dans le fichier
+                        $json = json_encode($this->books);
+                        file_put_contents('Data/Livre.json', $json);
+
+                        echo "Les informations du livre ont été mises à jour.\n";
+                        $this->history(['action' => 'Modification', 'ID du livre' => $existingBook['id']]);
+                        return;
+                    }
                 }
-            }
 
-            echo "Aucun livre trouvé avec cet ID.\n";
+                echo "Aucun livre trouvé avec cette donnée.\n";
+            }
         }
     }
 
@@ -205,8 +211,10 @@ class Bibliotheque
         $j = 0;
 
         while ($i < count($left) && $j < count($right)) {
-            if (($order === 'asc' && $left[$i][$column] <= $right[$j][$column]) ||
-                ($order === 'desc' && $left[$i][$column] > $right[$j][$column])) {
+            if (
+                ($order === 'asc' && $left[$i][$column] <= $right[$j][$column]) ||
+                ($order === 'desc' && $left[$i][$column] > $right[$j][$column])
+            ) {
                 $result[] = $left[$i++];
             } else {
                 $result[] = $right[$j++];
@@ -278,7 +286,7 @@ class Bibliotheque
         }
     }
 
-    public function findBook($column, $value) : void
+    public function findBook($column, $value): void
     {
         // Récupère les informations des livres
         $json = file_get_contents('Data/Livre.json');
@@ -330,7 +338,7 @@ class Bibliotheque
     }
 
 
-    private function history(array $data) : void
+    private function history(array $data): void
     {
         // Vérifie si l'action est présente dans le tableau pour déterminer le type de log 
         if ($data["action"] === "Suppression") {
@@ -368,13 +376,12 @@ class Bibliotheque
                 $left[] = $array[$i];
             } else {
                 // Si l'élément est plus grand que le pivot, on l'ajoute au tableau de droite
-                if (isset($array[$i])){
+                if (isset($array[$i])) {
                     $right[] = $array[$i];
-                }
-                else{
+                } else {
                     $right[] = $pivot;
                 }
-                
+
             }
         }
 

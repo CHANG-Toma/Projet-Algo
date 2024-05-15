@@ -42,17 +42,37 @@ do {
             break;
 
         case '2':
+            $bookData = [];
             // Logique de modification de livre
-            echo "Entrez le nom du livre à modifier : ";
-            $nom = trim(fgets(STDIN));
-            echo "Entrez le nouveau nom du livre : ";
-            $NouveauNom = trim(fgets(STDIN));
-            echo "Entrez la nouvelle description du livre : ";
-            $description = trim(fgets(STDIN));
-            echo "Le livre est-il en stock ? (oui/non) : ";
-            $enStock = strtolower(trim(fgets(STDIN))) === 'oui' ? 1 : 0;
+            echo "\nComment voulez-vous modifier ? : \n";
+            echo "1. Par son nom\n";
+            echo "2. Par son id\n";
+            echo "Choisissez une option : ";
+            $column = trim(fgets(STDIN));
 
-            $bibliotheque->modifyBook($nom, $NouveauNom, $description, $enStock);
+            switch ($column) {
+                case '1':
+                    $column = 'name';
+                    echo "Entrez le nom du livre à modifier : ";
+                    $bookData["book"] = trim(fgets(STDIN));
+                    break;
+                case '2':
+                    $column = 'id';
+                    echo "Entrez l'id du livre à modifier : ";
+                    $bookData["book"] = trim(fgets(STDIN));
+                    break;
+                default:
+                    echo "Option non valide. Veuillez réessayer.\n";
+            }
+
+            echo "Entrez le nouveau nom du livre : ";
+            $bookData["newName"] = trim(fgets(STDIN));
+            echo "Entrez la nouvelle description du livre : ";
+            $bookData["description"] = trim(fgets(STDIN));
+            echo "Le livre est-il en stock ? (oui/non) : ";
+            $bookData["inStock"] = strtolower(trim(fgets(STDIN)));
+
+            $bibliotheque->modifyBook($column, $bookData);
             break;
 
         case '3':
@@ -129,7 +149,6 @@ do {
                     break;
                 default:
                     echo "Option non valide.\n";
-                    continue 2;
             }
 
             echo "Choisissez l'ordre du tri :\n";
@@ -170,7 +189,6 @@ do {
                     break;
                 default:
                     echo "Option non valide. Veuillez réessayer.\n";
-                    continue;
             }
 
             $bibliotheque->findBook($column, $bookData);
