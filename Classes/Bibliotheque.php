@@ -152,27 +152,33 @@ class Bibliotheque
         }
     }
 
-    public function sortBooks($column, $order = 'asc')
+    public function sortBooks(string $column, string $order): void
     {
+        // Lire les données du fichier JSON
         if (file_exists('Data/Livre.json')) {
             $json = file_get_contents('Data/Livre.json');
-            $this->books = json_decode($json, true);
-
-            if (!empty($this->books)) {
-                $sortedBooks = $this->mergeSort($this->books, $column, $order);
-                foreach ($sortedBooks as $book) {
-                    echo "ID: " . $book['id'] . "\n";
-                    echo "Nom: " . $book['name'] . "\n";
-                    echo "Description: " . $book['description'] . "\n";
-                    echo "En stock: " . ($book['inStock'] ? "Oui" : "Non") . "\n\n";
-                }
+            if (!empty($json)) {
+                $this->books = json_decode($json, true);
             } else {
-                echo "Aucun livre à trier.\n";
+                echo "Le fichier JSON est vide.\n";
+                return;
             }
         } else {
-            echo "Fichier de données introuvable.\n";
+            echo "Le fichier JSON n'existe pas.\n";
+            return;
         }
+
+        // Appliquer le tri en utilisant mergeSort
+        $this->books = $this->mergeSort($this->books, $column, $order);
+
+        // Sauvegarder les données triées dans le fichier JSON
+        $json = json_encode($this->books, JSON_PRETTY_PRINT);
+        file_put_contents('Data/Livre.json', $json);
+
+        echo "Les livres ont été triés et sauvegardés dans le fichier JSON.\n";
     }
+
+
 
     private function mergeSort($books, $column, $order)
     {
